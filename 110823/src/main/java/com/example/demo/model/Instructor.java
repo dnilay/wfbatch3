@@ -15,6 +15,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 @Entity
 @Table(name="instructor")
 public class Instructor {
@@ -47,9 +48,11 @@ public class Instructor {
     @Column(name="email")
     private String email;
 
+    @JsonProperty
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "instructor_detail_id")
     private InstructorDetail instructorDetail;
+    @JsonProperty
     @JsonManagedReference 
     @OneToMany(mappedBy = "instructor",
                cascade = {CascadeType.PERSIST, CascadeType.MERGE,
@@ -106,17 +109,7 @@ public class Instructor {
         this.instructorDetail = instructorDetail;
     }
 
-    @Override
-    public String toString() {
-        return "Instructor{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", instructorDetail=" + instructorDetail +
-                '}';
-    }
-
+   
     public List<Course> getCourses() {
         return courses;
     }

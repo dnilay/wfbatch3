@@ -71,8 +71,5 @@ public class Course {
 		this.instructor = instructor;
 	}
 
-	@Override
-	public String toString() {
-		return "Course{" + "id=" + id + ", title='" + title + '\'' + '}';
-	}
+	
 }

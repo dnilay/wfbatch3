@@ -91,11 +91,6 @@ public class InstructorDetail {
 		this.instructor = instructor;
 	}
 
-	@Override
-	public String toString() {
-		return "InstructorDetail [id=" + id + ", youtubeChannel=" + youtubeChannel + ", hobby=" + hobby
-				+ ", instructor=" + instructor + "]";
-	}
-
+	
 	
 }

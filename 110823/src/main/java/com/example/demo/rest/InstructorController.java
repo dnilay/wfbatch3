@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.Instructor;
-import com.example.demo.model.InstructorDetail;
-import com.example.demo.repo.InstructorDetailRepo;
 import com.example.demo.repo.InstructorRepo;
 
 @RestController
@@ -22,13 +20,14 @@ import com.example.demo.repo.InstructorRepo;
 public class InstructorController {
 
 	private final InstructorRepo instructorRepo;
-	private final InstructorDetailRepo instructorDetailRepo;
+
 	// constructor injection
-	public InstructorController(InstructorRepo instructorRepo, InstructorDetailRepo instructorDetailRepo) {
+	public InstructorController(InstructorRepo instructorRepo) {
 		super();
 		this.instructorRepo = instructorRepo;
-		this.instructorDetailRepo = instructorDetailRepo;
+
 	}
+
 	@PostMapping
 	public ResponseEntity<Instructor> createInstructor(@RequestBody Instructor instructor) {
 		Instructor i = instructorRepo.save(instructor);
@@ -36,14 +35,17 @@ public class InstructorController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<?> findInstructorDetailById(@PathVariable("id") int id)
-	{
-		Optional<InstructorDetail> o=instructorDetailRepo.findById(id);
-		
-		return ResponseEntity.ok(o);
-	
-	}
-	
-	
+	public ResponseEntity<Optional<Instructor>> findInstructorById(@PathVariable("id") int id) {
 
+		Optional<Instructor> inOptional=instructorRepo.findById(id);
+		System.out.println(inOptional);
+		return ResponseEntity.ok(inOptional);
+	}
+	@GetMapping("/find/{email}")
+	public ResponseEntity<Optional<Instructor>> findInstructorByEmail(@PathVariable("email") String email) {
+
+		Optional<Instructor> inOptional=instructorRepo.findByEmail(email);
+		System.out.println(inOptional);
+		return ResponseEntity.ok(inOptional);
+	}
 }
